@@ -1,11 +1,12 @@
 # 🎬 Antigravity Skill: Xem Video, Phân Biệt Người Nói & Xử Lý Song Song Nhiều Clip
 
 Skill chuyên dụng cho **Google Antigravity (AGY)** và CLI trên macOS:
-1. **Bóc băng toàn văn 100% (Full Verbatim):** Không tóm tắt, không lược bỏ bất kỳ câu chữ nào từ 00:00 đến hết video kèm mốc thời gian chính xác `[MM:SS - MM:SS]`.
-2. **Phân biệt người nói (Ai với ai - Speaker Diarization):** Tự động phân tách rành mạch `🎙️ Người nói 1` và `👥 Người nói 2`.
-3. **AI Review & Chuẩn hóa thuật ngữ IT:** Tự động phát hiện và sửa các từ mượn tiếng Anh / chuyên ngành IT bị nhận dạng sai lệch theo âm điệu tiếng Việt (ví dụ: *FixedUpdate, Update, Particle System, Object Pool, Collider, Trigger, Intern, Project, Jira, Docker, Knowledge Graph RAG AI, LeetCode, DSA...*).
-4. **Xử lý song song đa luồng (Parallel Batch Processing):** Chạy đồng thời nhiều clip hoặc quét cả folder video chỉ trong vài chục giây bằng engine **Zipformer (sherpa-onnx vi-30M)** cho Tiếng Việt và **Whisper** cho Tiếng Anh/đa ngôn ngữ.
-5. **Cắt clip tự động siêu tốc:** Cắt đoạn trích bất kỳ trong 0.05s bằng `ffmpeg` stream copy không cần render lại.
+1. **Bóc băng toàn văn 100% (Full Verbatim — Không Cắt Ngắn):** Luôn hiển thị đầy đủ 100% từng câu thoại nguyên văn từ `00:00` đến giây cuối cùng (kể cả video dài 1–2+ tiếng), nghiêm cấm tự ý rút gọn đoạn giữa kèm mốc thời gian chính xác `[MM:SS - MM:SS]`.
+2. **Tóm tắt tổng quan (OTM) & Chia đoạn kèm tóm tắt trước mỗi đoạn hội thoại:** Luôn có khối OTM đầu bài và tự động chia Full Transcript theo mạch nội dung; ngay trước mỗi phân đoạn đều có dòng `📝 Tóm tắt đoạn` bằng Tiếng Việt để lướt nhanh biết ngay đoạn đó nói về gì.
+3. **Phân biệt người nói (Ai với ai - Speaker Diarization):** Tự động phân tách rành mạch `🎙️ Người nói 1` và `👥 Người nói 2`.
+4. **AI Review & Chuẩn hóa thuật ngữ IT:** Tự động phát hiện và sửa các từ mượn tiếng Anh / chuyên ngành IT bị nhận dạng sai lệch theo âm điệu tiếng Việt (ví dụ: *FixedUpdate, Update, Particle System, Object Pool, Collider, Trigger, Intern, Project, Jira, Docker, Knowledge Graph RAG AI, LeetCode, DSA...*).
+5. **Xử lý song song đa luồng (Parallel Batch Processing):** Chạy đồng thời nhiều clip hoặc quét cả folder video chỉ trong vài chục giây bằng engine **Zipformer (sherpa-onnx vi-30M)** cho Tiếng Việt và **Whisper** cho Tiếng Anh/đa ngôn ngữ.
+6. **Cắt clip tự động siêu tốc:** Cắt đoạn trích bất kỳ trong 0.05s bằng `ffmpeg` stream copy không cần render lại.
 
 ---
 

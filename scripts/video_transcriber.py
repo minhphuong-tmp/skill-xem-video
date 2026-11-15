@@ -255,23 +255,26 @@ def download_online_subtitles(url: str, temp_dir: str):
     output_template = os.path.join(temp_dir, "%(id)s.%(ext)s")
     cmd = [
         "yt-dlp",
+        "--ignore-errors",
         "--write-sub",
         "--write-auto-sub",
-        "--sub-lang", "vi,en,en-orig,ja,ko,zh,auto",
-        "--sub-format", "vtt/srt/best",
+        "--sub-lang", "en-orig,vi,en,ja,ko,zh,auto",
+        "--sub-format", "srt/best",
         "--skip-download",
         "-o", output_template,
         url
     ]
     subprocess.run(cmd, capture_output=True, text=True)
     
-    files = [os.path.join(temp_dir, f) for f in os.listdir(temp_dir) if f.endswith(('.vtt', '.srt'))]
+    files = [os.path.join(temp_dir, f) for f in os.listdir(temp_dir) if f.endswith(('.srt', '.vtt'))]
     if not files: return None
-    vi_subs = [f for f in files if '.vi.' in f]
+    srt_files = [f for f in files if f.endswith('.srt')]
+    candidate_list = srt_files if srt_files else files
+    vi_subs = [f for f in candidate_list if '.vi.' in f or '.vi-' in f]
     if vi_subs: return vi_subs[0]
-    en_subs = [f for f in files if '.en' in f]
+    en_subs = [f for f in candidate_list if '.en' in f]
     if en_subs: return en_subs[0]
-    return files[0]
+    return candidate_list[0]
 
 def download_online_audio_only(url: str, output_audio: str) -> bool:
     """Download only the audio stream directly without downloading full video."""
