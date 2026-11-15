@@ -2,7 +2,7 @@
 name: xem-video
 description: >-
   Xem video, bóc băng và trích xuất toàn bộ cuộc trò chuyện/lời thoại kèm mốc thời gian (timestamps),
-  chia các đoạn hội thoại theo mạch nội dung kèm dòng tóm tắt ngắn trước mỗi đoạn để biết ngay đoạn đó nói về gì,
+  chia các đoạn hội thoại theo mạch nội dung kèm tóm tắt đầy đủ cả VẤN ĐỀ lẫn CÁCH XỬ LÝ/GIẢI PHÁP cụ thể trước mỗi đoạn,
   phân loại người nói (ai với ai - Speaker Diarization), tự động AI Review & chuẩn hóa thuật ngữ IT,
   hỗ trợ cắt clip tự động siêu tốc bằng ffmpeg, và HỖ TRỢ XỬ LÝ SONG SONG NHIỀU CLIP CÙNG LÚC để bóc băng hàng loạt siêu nhanh.
   Kích hoạt khi người dùng gõ "/skill xem video", "xem video", "xem clip", "bóc băng video",
@@ -13,7 +13,7 @@ description: >-
 
 Skill này hỗ trợ xử lý từ 1 clip đơn lẻ cho đến **hàng loạt nhiều clip cùng lúc (chạy song song đa luồng)**:
 1. **Bóc băng toàn văn 100% (Full Verbatim):** Không tóm tắt thay lời thoại, không lược bỏ bất kỳ câu chữ nào từ 00:00 đến hết clip.
-2. **Chia đoạn theo mạch nội dung & Tóm tắt trước mỗi đoạn hội thoại:** Tự động chia cuộc trò chuyện thành các phân đoạn logic theo chủ đề/mạch chuyện; ngay trước mỗi đoạn đều có dòng **📝 Tóm tắt đoạn** (bằng Tiếng Việt súc tích) để biết ngay đoạn hội thoại bên dưới đang nói về cái gì.
+2. **Chia đoạn theo mạch nội dung & Tóm tắt trọn vẹn "Vấn Đề ➔ Cách Xử Lý" trước mỗi đoạn:** Tự động chia cuộc trò chuyện thành các phân đoạn logic; ngay trước mỗi đoạn đều có khối tóm tắt Tiếng Việt nêu rõ **không chỉ vấn đề đang bàn mà bắt buộc phải chỉ rõ họ đã xử lý / giải quyết vấn đề đó như thế nào** (cơ chế, công cụ, quy trình, hướng tháo gỡ hoặc kết luận chốt lại).
 3. **Phân loại người nói (Ai với ai - Speaker Diarization):** Tự động phân tách `🎙️ Người nói 1` và `👥 Người nói 2`.
 4. **BẮT BUỘC AI Review & Chuẩn Hóa Thuật Ngữ IT Trước Khi Trả Về:** Tự động sửa triệt để tất cả lỗi phiên âm sai lệch các từ mượn tiếng Anh chuyên ngành công nghệ (như `FixedUpdate`, `Update`, `Particle System`, `Object Pool`, `Collider`, `Trigger`, `intern`, `keyword`, `project`, `Jira`, `OpenFlow`, `Docker`, `Knowledge Graph RAG AI`, `LeetCode`, `DSA`, `Fsoft`, `blockchain`, `Cloud`, `DevOps`...), ghép nối câu thoại liền mạch theo đúng ngữ cảnh hỏi - đáp tự nhiên.
 5. **Không Lưu Rác - Tự Động Xóa Dọn Dẹp File Tạm:** Người dùng chỉ cần đọc toàn bộ text trực tiếp trong khung chat, hệ thống tự động xóa sạch các file tạm (`.transcript.md`, thư mục `_cuts/`) sau khi hiển thị ra chat.
@@ -82,30 +82,40 @@ python3 ~/.agents/skills/xem-video/scripts/cut_clip.py "video.mp4" 02:30 03:00 -
     - và mọi từ mượn tiếng Anh khác theo đúng ngữ cảnh thực tế của cuộc trò chuyện.
   - Chuẩn hóa ngữ pháp, dấu câu, ghép nối mạch lạc tự nhiên trước khi trả về.
 
-### 2. BẮT BUỘC IN PHẦN TÓM TẮT NHANH TỔNG QUAN (OTM) TRƯỚC KHI IN FULL TRANSCRIPT:
+### 2. BẮT BUỘC IN PHẦN TÓM TẮT NHANH TỔNG QUAN (OTM — ĐẦY ĐỦ CẢ VẤN ĐỀ LẪN CÁCH XỬ LÝ) TRƯỚC KHI IN FULL TRANSCRIPT:
 - Sau khi bóc băng xong và trước khi in toàn bộ lời thoại, **BẮT BUỘC PHẢI IN MỘT KHỐI TÓM TẮT NHANH** (OTM - Overview/Tóm lược) gồm:
-  - 🎯 **Chủ đề chính** của video (1-2 câu)
-  - 👥 **Thành phần người nói** (bao nhiêu người, vai trò)
-  - 📌 **3-5 điểm chính** (key takeaways) của toàn bộ nội dung video
-  - ⏱️ **Thời lượng** và **ngôn ngữ**
-- Khối OTM này phải nằm **TRƯỚC** phần full transcript, giúp người dùng nắm bắt tổng quan trước khi đọc chi tiết.
+  - 🎯 **Chủ đề cốt lõi** của video (1–2 câu).
+  - 👥 **Thành phần người nói** (bao nhiêu người, vai trò).
+  - 🛠️ **Các vấn đề đặt ra & Cách xử lý / Giải pháp tương ứng (3–6 điểm chính):**
+    - **NGHIÊM CẤM** kiểu tóm tắt chung chung chỉ nêu đầu mục/vấn đề (ví dụ: *"Bàn về lỗi lag game"*, *"Nói về khó khăn khi làm AI Agent"*).
+    - Với mỗi điểm chính, **BẮT BUỘC phải viết theo cặp `Vấn đề / Thách thức ➔ Cách họ xử lý / Giải pháp / Kết luận cụ thể`** đã được bàn tới trong cuộc trò chuyện (họ dùng kỹ thuật gì, đổi sang công cụ nào, xử lý từng bước ra sao, tại sao cách đó hiệu quả).
+  - ⏱️ **Thời lượng** và **ngôn ngữ**.
+- Khối OTM này phải nằm **TRƯỚC** phần full transcript, giúp người dùng chỉ cần lướt qua là nắm được cả bài toán lẫn lời giải thực chiến của video.
 
-### 3. BẮT BUỘC CHIA CÁC ĐOẠN CUỘC TRÒ CHUYỆN & ĐẶT DÒNG TÓM TẮT TRƯỚC MỖI ĐOẠN:
+### 3. BẮT BUỘC CHIA CÁC ĐOẠN CUỘC TRÒ CHUYỆN & TÓM TẮT RÕ "VẤN ĐỀ + CÁCH XỬ LÝ" TRƯỚC MỖI ĐOẠN:
 - **TUYỆT ĐỐI KHÔNG** gộp toàn bộ cuộc trò chuyện thành một bảng dài liền tù tì từ đầu đến cuối mà không có phân đoạn.
-- Phải chia phần `Full Transcript` thành **các đoạn hội thoại logic theo mạch chủ đề / chuyển ý / từng câu hỏi - trả lời** (ví dụ mỗi đoạn kéo dài vài câu đến vài phút tùy độ dài video).
+- Phải chia phần `Full Transcript` thành **các đoạn hội thoại logic theo mạch chủ đề / chuyển ý / từng cặp câu hỏi - trả lời**.
 - **Ngay phía trước mỗi đoạn cuộc trò chuyện**, **BẮT BUỘC** phải có:
   1. **Tiêu đề phân đoạn kèm khoảng thời gian** (`### 🔹 Đoạn X [MM:SS - MM:SS] — <Tiêu đề ngắn gọn>`).
-  2. **Dòng tóm tắt nội dung tương ứng của đoạn đó** (`> 📝 **Tóm tắt đoạn:** ...`) viết bằng **Tiếng Việt ngắn gọn (1–2 câu)** giải thích rõ đoạn cuộc trò chuyện ngay bên dưới đang nói về vấn đề gì (ngay cả khi lời thoại gốc là Tiếng Anh hay ngôn ngữ khác, dòng tóm tắt đoạn vẫn viết bằng Tiếng Việt để lướt nhanh nắm ý ngay).
-- Ngay bên dưới dòng tóm tắt là bảng lời thoại chi tiết 100% của đoạn đó.
-- **Format hiển thị chuẩn bắt buộc (OTM + Các đoạn hội thoại có tóm tắt riêng):**
+  2. **Khối tóm tắt nội dung & cách giải quyết của đoạn đó** viết bằng **Tiếng Việt rõ ràng, đầy đủ ý (2–4 dòng)** (ngay cả khi lời thoại gốc là Tiếng Anh hay ngôn ngữ khác, phần tóm tắt vẫn viết bằng Tiếng Việt):
+     - **BẮT BUỘC phải nêu đủ cả 2 vế:**
+       - **❓ Vấn đề / Bối cảnh đặt ra:** Đoạn này đang nêu ra bài toán, lỗi, câu hỏi hay tình huống thực tế gì?
+       - **💡 Cách xử lý / Giải pháp / Chốt ý:** Trong cuộc trò chuyện, người nói đã giải quyết/tháo gỡ vấn đề đó cụ thể như thế nào? (Nêu rõ phương pháp, cơ chế hoạt động, bước thực hiện, công cụ sử dụng, hoặc quyết định/bài học rút ra — nếu đoạn đó là phần giới thiệu/mở bài chưa có giải pháp thì ghi rõ hướng tiếp cận mà người nói dẫn dắt sang phần sau).
+     - **Ví dụ đối chiếu để tránh lỗi tóm tắt hời hợt:**
+       - ❌ *Sai (chỉ nêu vấn đề, bỏ sót cách xử lý):* `Đoạn này hai người thảo luận về việc context của AI bị đầy khi làm dự án lớn và lỗi sinh code sai.`
+       - ✅ *Đúng (nêu rõ cả vấn đề lẫn cách xử lý):*
+         - `❓ Vấn đề:` Khi dự án lớn dần, nhồi toàn bộ tài liệu vào làm đầy cửa sổ context khiến AI bị loạn và sửa code hỏng dây chuyền.
+         - `💡 Cách xử lý:` Tách quy trình thành 3 bước (Research ➔ Plan ➔ Implement), lưu trạng thái ra file `SPEC.md` cố định trên ổ cứng và mở session mới sạch sẽ (`/clear`) cho từng tính năng nhỏ kèm bộ test tự động kiểm chứng.
+- Ngay bên dưới khối tóm tắt là bảng lời thoại chi tiết 100% của đoạn đó.
+- **Format hiển thị chuẩn bắt buộc (OTM + Các đoạn hội thoại có tóm tắt Vấn đề & Cách xử lý):**
   ```markdown
   ## 📋 Tóm Tắt Nhanh (OTM)
   🎯 **Chủ đề:** ...
   👥 **Người nói:** ...
-  📌 **Điểm chính:**
-    1. ...
-    2. ...
-    3. ...
+  🛠️ **Vấn đề & Cách xử lý cốt lõi:**
+    1. **[Tên vấn đề 1]:** [Mô tả ngắn vấn đề] ➔ **Cách xử lý:** [Giải pháp / cơ chế / các bước cụ thể họ áp dụng trong video].
+    2. **[Tên vấn đề 2]:** [Mô tả ngắn vấn đề] ➔ **Cách xử lý:** [Giải pháp / hướng tháo gỡ / kết luận cụ thể].
+    3. **[Tên vấn đề 3]:** [Mô tả ngắn vấn đề] ➔ **Cách xử lý:** [Giải pháp / hướng tháo gỡ / kết luận cụ thể].
   ⏱️ **Thời lượng:** ... | 🔤 **Ngôn ngữ:** ...
 
   ---
@@ -113,7 +123,9 @@ python3 ~/.agents/skills/xem-video/scripts/cut_clip.py "video.mp4" 02:30 03:00 -
   ## 💬 Full Transcript (Toàn Bộ Lời Thoại Theo Từng Đoạn)
 
   ### 🔹 Đoạn 1 `[00:00 - 02:15]` — [Tiêu đề ngắn về chủ đề đoạn 1]
-  > 📝 **Tóm tắt đoạn:** [1–2 câu tóm tắt nội dung tương ứng để người đọc biết ngay đoạn hội thoại này đang bàn về cái gì]
+  > 📝 **Tóm tắt đoạn:**
+  > - **Vấn đề / Bối cảnh:** [Bài toán, câu hỏi hoặc tình huống thực tế được đặt ra trong đoạn này]
+  > - **Cách xử lý / Nội dung chính:** [Họ đã giải quyết, phân tích cơ chế hoặc chốt phương án hành động cụ thể như thế nào trong đoạn hội thoại bên dưới]
 
   | Mốc thời gian | Người nói | Lời thoại chi tiết (Full Verbatim Dialogue) |
   | :--- | :--- | :--- |
@@ -121,7 +133,9 @@ python3 ~/.agents/skills/xem-video/scripts/cut_clip.py "video.mp4" 02:30 03:00 -
   | `[00:12 - 00:28]` | **👥 Người nói 2** | ... |
 
   ### 🔹 Đoạn 2 `[02:15 - 05:40]` — [Tiêu đề ngắn về chủ đề đoạn 2]
-  > 📝 **Tóm tắt đoạn:** [1–2 câu tóm tắt nội dung chính của đoạn hội thoại thứ 2]
+  > 📝 **Tóm tắt đoạn:**
+  > - **Vấn đề / Bối cảnh:** [Vấn đề tiếp theo phát sinh trong cuộc trò chuyện]
+  > - **Cách xử lý / Nội dung chính:** [Giải pháp kỹ thuật / quy trình thực tế mà người nói đưa ra để xử lý dứt điểm]
 
   | Mốc thời gian | Người nói | Lời thoại chi tiết (Full Verbatim Dialogue) |
   | :--- | :--- | :--- |

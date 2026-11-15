@@ -2,7 +2,7 @@
 
 Skill chuyên dụng cho **Google Antigravity (AGY)** và CLI trên macOS:
 1. **Bóc băng toàn văn 100% (Full Verbatim — Không Cắt Ngắn):** Luôn hiển thị đầy đủ 100% từng câu thoại nguyên văn từ `00:00` đến giây cuối cùng (kể cả video dài 1–2+ tiếng), nghiêm cấm tự ý rút gọn đoạn giữa kèm mốc thời gian chính xác `[MM:SS - MM:SS]`.
-2. **Tóm tắt tổng quan (OTM) & Chia đoạn kèm tóm tắt trước mỗi đoạn hội thoại:** Luôn có khối OTM đầu bài và tự động chia Full Transcript theo mạch nội dung; ngay trước mỗi phân đoạn đều có dòng `📝 Tóm tắt đoạn` bằng Tiếng Việt để lướt nhanh biết ngay đoạn đó nói về gì.
+2. **Tóm tắt tổng quan (OTM) & Chia đoạn kèm tóm tắt rõ cả "Vấn đề ➔ Cách xử lý":** Luôn có khối OTM đầu bài và tự động chia Full Transcript theo mạch nội dung; cả OTM lẫn khối `📝 Tóm tắt đoạn` trước mỗi bảng hội thoại đều bắt buộc chỉ rõ **vấn đề đặt ra là gì VÀ trong cuộc trò chuyện họ xử lý / giải quyết vấn đề đó cụ thể như thế nào** (cơ chế, công cụ, các bước làm, kết luận thực tế).
 3. **Phân biệt người nói (Ai với ai - Speaker Diarization):** Tự động phân tách rành mạch `🎙️ Người nói 1` và `👥 Người nói 2`.
 4. **AI Review & Chuẩn hóa thuật ngữ IT:** Tự động phát hiện và sửa các từ mượn tiếng Anh / chuyên ngành IT bị nhận dạng sai lệch theo âm điệu tiếng Việt (ví dụ: *FixedUpdate, Update, Particle System, Object Pool, Collider, Trigger, Intern, Project, Jira, Docker, Knowledge Graph RAG AI, LeetCode, DSA...*).
 5. **Xử lý song song đa luồng (Parallel Batch Processing):** Chạy đồng thời nhiều clip hoặc quét cả folder video chỉ trong vài chục giây bằng engine **Zipformer (sherpa-onnx vi-30M)** cho Tiếng Việt và **Whisper** cho Tiếng Anh/đa ngôn ngữ.
